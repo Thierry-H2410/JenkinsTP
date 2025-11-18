@@ -1,10 +1,17 @@
-/* Requires the Docker Pipeline plugin */
 pipeline {
-    agent { docker { image 'node:24.11.1-alpine3.22' } }
+    agent any
+
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                sh 'node --version'
+                // Commande Windows (CMD)
+                bat 'echo Hello from Jenkins on Windows'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'echo Running simple tests...'
             }
         }
     }
