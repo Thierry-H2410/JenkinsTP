@@ -1,12 +1,14 @@
 pipeline {
     agent any
+
     stages {
         stage('Build') {
             steps {
-                sh 'echo "Hello World"'
-                sh '''
-                    echo "Multiline shell steps works too"
-                    ls -lah
+                bat 'echo Hello World'
+
+                bat '''
+                    echo Multiline batch steps works too
+                    dir
                 '''
             }
         }
@@ -15,11 +17,9 @@ pipeline {
             steps {
                 timeout(time: 1, unit: 'MINUTES') {
                     retry(3) {
-                        sh '''
-                            echo "Tentative de déploiement..."
-                            # ici on simule un script flakey-deploy.sh
-                            # pour l’instant on fait juste un echo
-                            echo "Déploiement OK (simulation)"
+                        bat '''
+                            echo Tentative de déploiement...
+                            echo Deploiement OK (simulation)
                         '''
                     }
                 }
@@ -29,17 +29,13 @@ pipeline {
 
     post {
         always {
-            echo 'Post: ceci s’exécute toujours (cleanup, logs, etc.)'
+            echo 'Post: ceci se lance toujours (cleanup, logs, etc.)'
         }
         success {
-            echo 'Post: pipeline terminé avec SUCCÈS'
+            echo 'Post: pipeline terminé avec SUCCES'
         }
         failure {
-            echo 'Post: pipeline en ÉCHEC'
+            echo 'Post: pipeline en ECHEC'
         }
     }
 }
-﻿
-snop9790
-snop9790
- 
